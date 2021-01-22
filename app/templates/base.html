@@ -1,0 +1,70 @@
+<html>
+  <head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/print.css">
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Bloooooog</title>
+    {% endif %}
+    <style>
+      ul#menu li {
+          display:inline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Welcome</a></li>
+      <li><a href="/personal_page">My feed</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/create_blog">Write blog</a></li>
+      {% if current_user.is_authenticated %}
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <span class="glyphicon glyphicon-user"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/user/{{current_user.id}}"></span>My blog</a></li>
+            <li><a href="/edit_password/{{current_user.id}}"></span>Edit password</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      {% else %}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Signup</a></li>
+      {% endif %}
+  </ul>
+  </div>
+</nav>
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>{{ message }}</strong>
+            </div>
+            {% endfor %}
+
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+
+  </body>
+</html>
