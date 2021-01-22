@@ -1,0 +1,25 @@
+@media print {
+
+  .navbar{
+       display: none;
+   }
+
+   .btn{
+        display: none;
+    }
+
+    a{
+         display: none;
+     }
+}
+
+
+h1, h4 {
+  text-align: center;
+}
+
+.feedback {
+  color: black;
+  background-color: lightblue;
+  min-height: 100vh;
+}
